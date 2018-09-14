@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+  <siteMapNode url="~/default.aspx" title="Home"  description="">
+    
+    <siteMapNode url="~/Settings/Settings.aspx" title="Settings"  description="" >
+      <siteMapNode url="~/Settings/CustomFields.aspx" title="Custom Fields" description=""/>
+    </siteMapNode>
+
+    <siteMapNode url="~/Work Orders/WorkOrders.aspx" title="Work Orders"  description="" >
+      <siteMapNode url="~/Work Orders/WorkOrderDetails.aspx" title="Work Order Details" description=""/>
+    </siteMapNode>
+
+    <siteMapNode url="~/Residents/Residents.aspx" title="Residents"  description="" >
+      <siteMapNode url="~/Residents/ResidentDetails.aspx" title="Resident Details" description=""/>
+    </siteMapNode>
+
+    <siteMapNode url="~/Maintence/MaintenceRequest.aspx" title="Maintence Requests"  description="" >
+      <siteMapNode url="~/Maintence/ReviewRequest.aspx" title="Review Request" description=""/>
+      <siteMapNode url="~/Maintence/AddMaintenceRequest.aspx" title="Add Maintence Request" description=""/>
+    </siteMapNode>
+
+    
+  </siteMapNode>
+
+  
+ 
+</siteMap>

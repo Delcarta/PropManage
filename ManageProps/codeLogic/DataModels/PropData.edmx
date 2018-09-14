@@ -1,0 +1,1162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PropManageModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AddressHistory">
+          <Key>
+            <PropertyRef Name="AddHistory_ID" />
+          </Key>
+          <Property Name="AddHistory_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LandlordCompanyName" Type="varchar" MaxLength="60" />
+          <Property Name="Address" Type="varchar" MaxLength="80" />
+          <Property Name="Phone" Type="varchar" MaxLength="15" />
+          <Property Name="StartEndDate" Type="varchar" MaxLength="25" />
+          <Property Name="CityStateZip" Type="varchar" MaxLength="100" />
+          <Property Name="Applicant_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Applicant">
+          <Key>
+            <PropertyRef Name="Applicant_ID" />
+          </Key>
+          <Property Name="Applicant_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="60" />
+          <Property Name="LastName" Type="varchar" MaxLength="60" />
+          <Property Name="Phone" Type="varchar" MaxLength="10" />
+          <Property Name="Social" Type="varchar" MaxLength="9" />
+          <Property Name="DOB" Type="date" />
+          <Property Name="DriversLicenseNum" Type="varchar" MaxLength="20" />
+          <Property Name="Email" Type="varchar" MaxLength="70" />
+          <Property Name="Application_ID" Type="int" Nullable="false" />
+          <Property Name="IsPrimary" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Application">
+          <Key>
+            <PropertyRef Name="Application_ID" />
+          </Key>
+          <Property Name="Application_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Applicants" Type="int" Nullable="false" />
+          <Property Name="Occupants" Type="int" Nullable="false" />
+          <Property Name="Pets" Type="int" Nullable="false" />
+          <Property Name="Vehicles" Type="int" Nullable="false" />
+          <Property Name="PropertyID" Type="int" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="CompanyID" />
+          </Key>
+          <Property Name="CompanyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="DBAName" Type="varchar" MaxLength="100" />
+          <Property Name="Address1" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Address2" Type="varchar" MaxLength="100" />
+          <Property Name="Zip" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="15" />
+          <Property Name="Email" Type="varchar" MaxLength="70" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PropManage.dbo.CustomFields' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CustomFields">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="IsCompanyWide" />
+            <PropertyRef Name="PropertyID" />
+            <PropertyRef Name="CompanyID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fields" Type="nvarchar(max)" />
+          <Property Name="IsCompanyWide" Type="bit" Nullable="false" />
+          <Property Name="PropertyID" Type="int" Nullable="false" />
+          <Property Name="CompanyID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmploymentHistory">
+          <Key>
+            <PropertyRef Name="EmpHistory_ID" />
+          </Key>
+          <Property Name="EmpHistory_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Company" Type="varchar" MaxLength="60" />
+          <Property Name="Address" Type="varchar" MaxLength="80" />
+          <Property Name="Phone" Type="varchar" MaxLength="15" />
+          <Property Name="StartEndDate" Type="varchar" MaxLength="25" />
+          <Property Name="GrossMonthlyIncome" Type="int" />
+          <Property Name="Applicant_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MaintenceRequests">
+          <Key>
+            <PropertyRef Name="RequestID" />
+          </Key>
+          <Property Name="RequestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RequestDate" Type="datetime" Nullable="false" />
+          <Property Name="RequestDetails" Type="varchar(max)" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="UnitID" Type="int" />
+          <Property Name="ResidentID" Type="int" />
+          <Property Name="PropertyID" Type="int" />
+          <Property Name="IsClosed" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PropManage.dbo.Occupants' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Occupants">
+          <Key>
+            <PropertyRef Name="Occupant_ID" />
+            <PropertyRef Name="Application_ID" />
+          </Key>
+          <Property Name="Occupant_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="120" />
+          <Property Name="DOB" Type="date" />
+          <Property Name="Application_ID" Type="int" Nullable="false" />
+          <Property Name="SSN" Type="varchar" MaxLength="9" />
+          <Property Name="Drivers_License_Num" Type="varchar" MaxLength="15" />
+          <Property Name="ApplicationID" Type="int" />
+        </EntityType>
+        <EntityType Name="Pets">
+          <Key>
+            <PropertyRef Name="Pet_ID" />
+          </Key>
+          <Property Name="Pet_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="varchar" MaxLength="60" />
+          <Property Name="Breed" Type="varchar" MaxLength="45" />
+          <Property Name="Deposit" Type="money" />
+          <Property Name="Application_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Property">
+          <Key>
+            <PropertyRef Name="PropertyID" />
+          </Key>
+          <Property Name="PropertyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PropertyName" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="PropertyAddress1" Type="varchar" MaxLength="60" />
+          <Property Name="PropertyAddress2" Type="varchar" MaxLength="60" />
+          <Property Name="Phone" Type="varchar" MaxLength="15" />
+          <Property Name="Zip" Type="varchar" MaxLength="10" />
+          <Property Name="ContactPerson" Type="varchar" MaxLength="60" />
+          <Property Name="Email" Type="varchar" MaxLength="60" />
+          <Property Name="CompanyID" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'PropManage.dbo.ResidentCustomFieldValues' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="ResidentCustomFieldValues">
+          <Property Name="ResidentID" Type="int" />
+          <Property Name="FieldValues" Type="nvarchar(max)" />
+        </EntityType>-->
+        <EntityType Name="Residents">
+          <Key>
+            <PropertyRef Name="ResidentID" />
+          </Key>
+          <Property Name="ResidentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UnitID" Type="int" />
+          <Property Name="MoveInDate" Type="datetime" />
+          <Property Name="MoveOutDate" Type="datetime" />
+          <Property Name="FirstName" Type="varchar" MaxLength="60" />
+          <Property Name="LastName" Type="varchar" MaxLength="60" />
+          <Property Name="Social" Type="varchar" MaxLength="9" />
+          <Property Name="Email" Type="varchar" MaxLength="70" />
+          <Property Name="Phone" Type="varchar" MaxLength="15" />
+          <Property Name="Birthday" Type="date" />
+          <Property Name="MiddleName" Type="varchar" MaxLength="50" />
+          <Property Name="UserID" Type="int" />
+          <Property Name="PropertyID" Type="int" />
+          <Property Name="ApplicationID" Type="int" />
+        </EntityType>
+        <EntityType Name="Units">
+          <Key>
+            <PropertyRef Name="UnitID" />
+          </Key>
+          <Property Name="UnitID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UnitLotNum" Type="int" Nullable="false" />
+          <Property Name="UnitAddress1" Type="varchar" MaxLength="60" />
+          <Property Name="UnitAddress2" Type="varchar" MaxLength="60" />
+          <Property Name="Zip" Type="varchar" MaxLength="10" />
+          <Property Name="PropertyID" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'PropManage.dbo.UserPasswordReset' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="UserPasswordReset">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="ResetKey" />
+            <PropertyRef Name="Expiry" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="ResetKey" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Expiry" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="70" Nullable="false" />
+          <Property Name="CompanyID" Type="int" />
+          <Property Name="PropertyID" Type="int" />
+          <Property Name="UserType" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="15" />
+          <Property Name="IsOwner" Type="bit" />
+          <Property Name="IsEmployee" Type="bit" />
+          <Property Name="IsResident" Type="bit" />
+          <Property Name="IsVendor" Type="bit" />
+          <Property Name="EmployeeOf" Type="char" MaxLength="1" />
+          <Property Name="Title" Type="varchar" MaxLength="60" />
+        </EntityType>
+        <EntityType Name="Vehicles">
+          <Key>
+            <PropertyRef Name="Vehicle_ID" />
+          </Key>
+          <Property Name="Vehicle_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Make" Type="varchar" MaxLength="60" />
+          <Property Name="Model" Type="varchar" MaxLength="60" />
+          <Property Name="Year" Type="int" />
+          <Property Name="Color" Type="varchar" MaxLength="15" />
+          <Property Name="LicensePlateNum" Type="varchar" MaxLength="20" />
+          <Property Name="StateIssued" Type="varchar" MaxLength="25" />
+          <Property Name="Application_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WorkOrders">
+          <Key>
+            <PropertyRef Name="WorkOrderID" />
+          </Key>
+          <Property Name="WorkOrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApprovedBy" Type="int" Nullable="false" />
+          <Property Name="ApproveDate" Type="datetime" />
+          <Property Name="MaintenceRequestID" Type="int" Nullable="false" />
+          <Property Name="CurrentStatus" Type="varchar" MaxLength="20" />
+          <Property Name="Notes" Type="varchar(max)" />
+          <Property Name="OrderStarted" Type="datetime" />
+          <Property Name="OrderFinished" Type="datetime" />
+          <Property Name="PromiseDate" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_AddressHistory_Applicant">
+          <End Role="Applicant" Type="Self.Applicant" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AddressHistory" Type="Self.AddressHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Applicant">
+              <PropertyRef Name="Applicant_ID" />
+            </Principal>
+            <Dependent Role="AddressHistory">
+              <PropertyRef Name="Applicant_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Applicant_Application">
+          <End Role="Application" Type="Self.Application" Multiplicity="1" />
+          <End Role="Applicant" Type="Self.Applicant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application">
+              <PropertyRef Name="Application_ID" />
+            </Principal>
+            <Dependent Role="Applicant">
+              <PropertyRef Name="Application_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Company_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Company" Type="Self.Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Company">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmploymentHistory_Applicant">
+          <End Role="Applicant" Type="Self.Applicant" Multiplicity="1" />
+          <End Role="EmploymentHistory" Type="Self.EmploymentHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Applicant">
+              <PropertyRef Name="Applicant_ID" />
+            </Principal>
+            <Dependent Role="EmploymentHistory">
+              <PropertyRef Name="Applicant_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Occupants_Application">
+          <End Role="Application" Type="Self.Application" Multiplicity="1" />
+          <End Role="Occupants" Type="Self.Occupants" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application">
+              <PropertyRef Name="Application_ID" />
+            </Principal>
+            <Dependent Role="Occupants">
+              <PropertyRef Name="Application_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pets_Application">
+          <End Role="Application" Type="Self.Application" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Pets" Type="Self.Pets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application">
+              <PropertyRef Name="Application_ID" />
+            </Principal>
+            <Dependent Role="Pets">
+              <PropertyRef Name="Application_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Property_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Property" Type="Self.Property" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="CompanyID" />
+            </Principal>
+            <Dependent Role="Property">
+              <PropertyRef Name="CompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Residents_Units">
+          <End Role="Units" Type="Self.Units" Multiplicity="0..1" />
+          <End Role="Residents" Type="Self.Residents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Units">
+              <PropertyRef Name="UnitID" />
+            </Principal>
+            <Dependent Role="Residents">
+              <PropertyRef Name="UnitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Units_Property">
+          <End Role="Property" Type="Self.Property" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Units" Type="Self.Units" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Property">
+              <PropertyRef Name="PropertyID" />
+            </Principal>
+            <Dependent Role="Units">
+              <PropertyRef Name="PropertyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vehicles_Application">
+          <End Role="Application" Type="Self.Application" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Vehicles" Type="Self.Vehicles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application">
+              <PropertyRef Name="Application_ID" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="Application_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorkOrders_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="WorkOrders" Type="Self.WorkOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="WorkOrders">
+              <PropertyRef Name="ApprovedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PropManageModelStoreContainer">
+          <EntitySet Name="AddressHistory" EntityType="Self.AddressHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Applicant" EntityType="Self.Applicant" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Application" EntityType="Self.Application" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmploymentHistory" EntityType="Self.EmploymentHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MaintenceRequests" EntityType="Self.MaintenceRequests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pets" EntityType="Self.Pets" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Property" EntityType="Self.Property" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Residents" EntityType="Self.Residents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Units" EntityType="Self.Units" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vehicles" EntityType="Self.Vehicles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkOrders" EntityType="Self.WorkOrders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomFields" EntityType="Self.CustomFields" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CustomFields].[ID] AS [ID], 
+    [CustomFields].[Fields] AS [Fields], 
+    [CustomFields].[IsCompanyWide] AS [IsCompanyWide], 
+    [CustomFields].[PropertyID] AS [PropertyID], 
+    [CustomFields].[CompanyID] AS [CompanyID]
+    FROM [dbo].[CustomFields] AS [CustomFields]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Occupants" EntityType="Self.Occupants" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Occupants].[Occupant_ID] AS [Occupant_ID], 
+    [Occupants].[Name] AS [Name], 
+    [Occupants].[DOB] AS [DOB], 
+    [Occupants].[Application_ID] AS [Application_ID], 
+    [Occupants].[SSN] AS [SSN], 
+    [Occupants].[Drivers_License_Num] AS [Drivers_License_Num], 
+    [Occupants].[ApplicationID] AS [ApplicationID]
+    FROM [dbo].[Occupants] AS [Occupants]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="UserPasswordReset" EntityType="Self.UserPasswordReset" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [UserPasswordReset].[UserID] AS [UserID], 
+    [UserPasswordReset].[ResetKey] AS [ResetKey], 
+    [UserPasswordReset].[Expiry] AS [Expiry]
+    FROM [dbo].[UserPasswordReset] AS [UserPasswordReset]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_AddressHistory_Applicant" Association="Self.FK_AddressHistory_Applicant">
+            <End Role="Applicant" EntitySet="Applicant" />
+            <End Role="AddressHistory" EntitySet="AddressHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Applicant_Application" Association="Self.FK_Applicant_Application">
+            <End Role="Application" EntitySet="Application" />
+            <End Role="Applicant" EntitySet="Applicant" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Company_Users" Association="Self.FK_Company_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Company" EntitySet="Company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmploymentHistory_Applicant" Association="Self.FK_EmploymentHistory_Applicant">
+            <End Role="Applicant" EntitySet="Applicant" />
+            <End Role="EmploymentHistory" EntitySet="EmploymentHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Occupants_Application" Association="Self.FK_Occupants_Application">
+            <End Role="Application" EntitySet="Application" />
+            <End Role="Occupants" EntitySet="Occupants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pets_Application" Association="Self.FK_Pets_Application">
+            <End Role="Application" EntitySet="Application" />
+            <End Role="Pets" EntitySet="Pets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Property_Company" Association="Self.FK_Property_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Property" EntitySet="Property" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Residents_Units" Association="Self.FK_Residents_Units">
+            <End Role="Units" EntitySet="Units" />
+            <End Role="Residents" EntitySet="Residents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Units_Property" Association="Self.FK_Units_Property">
+            <End Role="Property" EntitySet="Property" />
+            <End Role="Units" EntitySet="Units" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vehicles_Application" Association="Self.FK_Vehicles_Application">
+            <End Role="Application" EntitySet="Application" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkOrders_Users" Association="Self.FK_WorkOrders_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="WorkOrders" EntitySet="WorkOrders" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PropManageModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AddressHistory">
+          <Key>
+            <PropertyRef Name="AddHistory_ID" />
+          </Key>
+          <Property Name="AddHistory_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LandlordCompanyName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="StartEndDate" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="CityStateZip" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Applicant_ID" Type="Int32" />
+          <NavigationProperty Name="Applicant" Relationship="Self.FK_AddressHistory_Applicant" FromRole="AddressHistory" ToRole="Applicant" />
+        </EntityType>
+        <EntityType Name="Applicant">
+          <Key>
+            <PropertyRef Name="Applicant_ID" />
+          </Key>
+          <Property Name="Applicant_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Social" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="DOB" Type="DateTime" Precision="0" />
+          <Property Name="DriversLicenseNum" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="Application_ID" Type="Int32" Nullable="false" />
+          <Property Name="IsPrimary" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AddressHistories" Relationship="Self.FK_AddressHistory_Applicant" FromRole="Applicant" ToRole="AddressHistory" />
+          <NavigationProperty Name="Application" Relationship="Self.FK_Applicant_Application" FromRole="Applicant" ToRole="Application" />
+          <NavigationProperty Name="EmploymentHistories" Relationship="Self.FK_EmploymentHistory_Applicant" FromRole="Applicant" ToRole="EmploymentHistory" />
+        </EntityType>
+        <EntityType Name="Application">
+          <Key>
+            <PropertyRef Name="Application_ID" />
+          </Key>
+          <Property Name="Application_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Applicants" Type="Int32" Nullable="false" />
+          <Property Name="Occupants" Type="Int32" Nullable="false" />
+          <Property Name="Pets" Type="Int32" Nullable="false" />
+          <Property Name="Vehicles" Type="Int32" Nullable="false" />
+          <Property Name="PropertyID" Type="Int32" />
+          <NavigationProperty Name="Applicants1" Relationship="Self.FK_Applicant_Application" FromRole="Application" ToRole="Applicant" />
+          <NavigationProperty Name="Occupants1" Relationship="Self.FK_Occupants_Application" FromRole="Application" ToRole="Occupants" />
+          <NavigationProperty Name="Pets1" Relationship="Self.FK_Pets_Application" FromRole="Application" ToRole="Pets" />
+          <NavigationProperty Name="Vehicles1" Relationship="Self.FK_Vehicles_Application" FromRole="Application" ToRole="Vehicles" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="CompanyID" />
+          </Key>
+          <Property Name="CompanyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DBAName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Address1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Address2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Zip" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="70" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Company_Users" FromRole="Company" ToRole="Users" />
+          <NavigationProperty Name="Properties" Relationship="Self.FK_Property_Company" FromRole="Company" ToRole="Property" />
+        </EntityType>
+        <EntityType Name="EmploymentHistory">
+          <Key>
+            <PropertyRef Name="EmpHistory_ID" />
+          </Key>
+          <Property Name="EmpHistory_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Company" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="StartEndDate" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="GrossMonthlyIncome" Type="Int32" />
+          <Property Name="Applicant_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Applicant" Relationship="Self.FK_EmploymentHistory_Applicant" FromRole="EmploymentHistory" ToRole="Applicant" />
+        </EntityType>
+        <EntityType Name="MaintenceRequest">
+          <Key>
+            <PropertyRef Name="RequestID" />
+          </Key>
+          <Property Name="RequestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RequestDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RequestDetails" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="UnitID" Type="Int32" />
+          <Property Name="ResidentID" Type="Int32" />
+          <Property Name="PropertyID" Type="Int32" />
+          <Property Name="IsClosed" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pet">
+          <Key>
+            <PropertyRef Name="Pet_ID" />
+          </Key>
+          <Property Name="Pet_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="Breed" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Deposit" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Application_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Application" Relationship="Self.FK_Pets_Application" FromRole="Pets" ToRole="Application" />
+        </EntityType>
+        <EntityType Name="Property">
+          <Key>
+            <PropertyRef Name="PropertyID" />
+          </Key>
+          <Property Name="PropertyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PropertyName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PropertyAddress1" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="PropertyAddress2" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Zip" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ContactPerson" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="CompanyID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Company" Relationship="Self.FK_Property_Company" FromRole="Property" ToRole="Company" />
+          <NavigationProperty Name="Units" Relationship="Self.FK_Units_Property" FromRole="Property" ToRole="Units" />
+        </EntityType>
+        <EntityType Name="Resident">
+          <Key>
+            <PropertyRef Name="ResidentID" />
+          </Key>
+          <Property Name="ResidentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UnitID" Type="Int32" />
+          <Property Name="MoveInDate" Type="DateTime" Precision="3" />
+          <Property Name="MoveOutDate" Type="DateTime" Precision="3" />
+          <Property Name="FirstName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="Social" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Birthday" Type="DateTime" Precision="0" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UserID" Type="Int32" />
+          <Property Name="PropertyID" Type="Int32" />
+          <Property Name="ApplicationID" Type="Int32" />
+          <NavigationProperty Name="Unit" Relationship="Self.FK_Residents_Units" FromRole="Residents" ToRole="Units" />
+        </EntityType>
+        <EntityType Name="Unit">
+          <Key>
+            <PropertyRef Name="UnitID" />
+          </Key>
+          <Property Name="UnitID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UnitLotNum" Type="Int32" Nullable="false" />
+          <Property Name="UnitAddress1" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="UnitAddress2" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="Zip" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="PropertyID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Property" Relationship="Self.FK_Units_Property" FromRole="Units" ToRole="Property" />
+          <NavigationProperty Name="Residents" Relationship="Self.FK_Residents_Units" FromRole="Units" ToRole="Residents" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="70" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CompanyID" Type="Int32" />
+          <Property Name="PropertyID" Type="Int32" />
+          <Property Name="UserType" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="IsOwner" Type="Boolean" />
+          <Property Name="IsEmployee" Type="Boolean" />
+          <Property Name="IsResident" Type="Boolean" />
+          <Property Name="IsVendor" Type="Boolean" />
+          <Property Name="EmployeeOf" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Title" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Companies" Relationship="Self.FK_Company_Users" FromRole="Users" ToRole="Company" />
+          <NavigationProperty Name="WorkOrders" Relationship="PropManageModel.FK_WorkOrders_Users" FromRole="User" ToRole="WorkOrder" />
+        </EntityType>
+        <EntityType Name="Vehicle">
+          <Key>
+            <PropertyRef Name="Vehicle_ID" />
+          </Key>
+          <Property Name="Vehicle_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Make" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="Model" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="Year" Type="Int32" />
+          <Property Name="Color" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="LicensePlateNum" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="StateIssued" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Application_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Application" Relationship="Self.FK_Vehicles_Application" FromRole="Vehicles" ToRole="Application" />
+        </EntityType>
+        <EntityType Name="WorkOrder">
+          <Key>
+            <PropertyRef Name="WorkOrderID" />
+          </Key>
+          <Property Name="WorkOrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApprovedBy" Type="Int32" Nullable="false" />
+          <Property Name="ApproveDate" Type="DateTime" Precision="3" />
+          <Property Name="MaintenceRequestID" Type="Int32" Nullable="false" />
+          <Property Name="CurrentStatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="OrderStarted" Type="DateTime" Precision="3" />
+          <Property Name="OrderFinished" Type="DateTime" Precision="3" />
+          <Property Name="PromiseDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="User" Relationship="PropManageModel.FK_WorkOrders_Users" FromRole="WorkOrder" ToRole="User" />
+        </EntityType>
+        <EntityType Name="CustomField">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="IsCompanyWide" />
+            <PropertyRef Name="PropertyID" />
+            <PropertyRef Name="CompanyID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fields" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsCompanyWide" Type="Boolean" Nullable="false" />
+          <Property Name="PropertyID" Type="Int32" Nullable="false" />
+          <Property Name="CompanyID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Occupant">
+          <Key>
+            <PropertyRef Name="Occupant_ID" />
+            <PropertyRef Name="Application_ID" />
+          </Key>
+          <Property Name="Occupant_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="DOB" Type="DateTime" Precision="0" />
+          <Property Name="Application_ID" Type="Int32" Nullable="false" />
+          <Property Name="SSN" Type="String" MaxLength="9" FixedLength="false" Unicode="false" />
+          <Property Name="Drivers_License_Num" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="ApplicationID" Type="Int32" />
+          <NavigationProperty Name="Application" Relationship="Self.FK_Occupants_Application" FromRole="Occupants" ToRole="Application" />
+        </EntityType>
+        <EntityType Name="UserPasswordReset">
+          <Key>
+            <PropertyRef Name="UserID" />
+            <PropertyRef Name="ResetKey" />
+            <PropertyRef Name="Expiry" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="ResetKey" Type="Guid" Nullable="false" />
+          <Property Name="Expiry" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <Association Name="FK_AddressHistory_Applicant">
+          <End Role="Applicant" Type="Self.Applicant" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AddressHistory" Type="Self.AddressHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Applicant">
+              <PropertyRef Name="Applicant_ID" />
+            </Principal>
+            <Dependent Role="AddressHistory">
+              <PropertyRef Name="Applicant_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Applicant_Application">
+          <End Role="Application" Type="Self.Application" Multiplicity="1" />
+          <End Role="Applicant" Type="Self.Applicant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application">
+              <PropertyRef Name="Application_ID" />
+            </Principal>
+            <Dependent Role="Applicant">
+              <PropertyRef Name="Application_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmploymentHistory_Applicant">
+          <End Role="Applicant" Type="Self.Applicant" Multiplicity="1" />
+          <End Role="EmploymentHistory" Type="Self.EmploymentHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Applicant">
+              <PropertyRef Name="Applicant_ID" />
+            </Principal>
+            <Dependent Role="EmploymentHistory">
+              <PropertyRef Name="Applicant_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Occupants_Application">
+          <End Role="Application" Type="Self.Application" Multiplicity="1" />
+          <End Role="Occupants" Type="Self.Occupant" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application">
+              <PropertyRef Name="Application_ID" />
+            </Principal>
+            <Dependent Role="Occupants">
+              <PropertyRef Name="Application_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pets_Application">
+          <End Role="Application" Type="Self.Application" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Pets" Type="Self.Pet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application">
+              <PropertyRef Name="Application_ID" />
+            </Principal>
+            <Dependent Role="Pets">
+              <PropertyRef Name="Application_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vehicles_Application">
+          <End Role="Application" Type="Self.Application" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Vehicles" Type="Self.Vehicle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application">
+              <PropertyRef Name="Application_ID" />
+            </Principal>
+            <Dependent Role="Vehicles">
+              <PropertyRef Name="Application_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Company_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Company" Type="Self.Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Company">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Property_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Property" Type="Self.Property" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="CompanyID" />
+            </Principal>
+            <Dependent Role="Property">
+              <PropertyRef Name="CompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Units_Property">
+          <End Role="Property" Type="Self.Property" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Units" Type="Self.Unit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Property">
+              <PropertyRef Name="PropertyID" />
+            </Principal>
+            <Dependent Role="Units">
+              <PropertyRef Name="PropertyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Residents_Units">
+          <End Role="Units" Type="Self.Unit" Multiplicity="0..1" />
+          <End Role="Residents" Type="Self.Resident" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Units">
+              <PropertyRef Name="UnitID" />
+            </Principal>
+            <Dependent Role="Residents">
+              <PropertyRef Name="UnitID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LocalPropManageEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AddressHistories" EntityType="Self.AddressHistory" />
+          <EntitySet Name="Applicants" EntityType="Self.Applicant" />
+          <EntitySet Name="Applications" EntityType="Self.Application" />
+          <EntitySet Name="Companies" EntityType="Self.Company" />
+          <EntitySet Name="EmploymentHistories" EntityType="Self.EmploymentHistory" />
+          <EntitySet Name="MaintenceRequests" EntityType="Self.MaintenceRequest" />
+          <EntitySet Name="Pets" EntityType="Self.Pet" />
+          <EntitySet Name="Properties" EntityType="Self.Property" />
+          <EntitySet Name="Residents" EntityType="Self.Resident" />
+          <EntitySet Name="Units" EntityType="Self.Unit" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="Vehicles" EntityType="Self.Vehicle" />
+          <EntitySet Name="WorkOrders" EntityType="Self.WorkOrder" />
+          <EntitySet Name="CustomFields" EntityType="Self.CustomField" />
+          <EntitySet Name="Occupants" EntityType="Self.Occupant" />
+          <EntitySet Name="UserPasswordResets" EntityType="Self.UserPasswordReset" />
+          <AssociationSet Name="FK_AddressHistory_Applicant" Association="Self.FK_AddressHistory_Applicant">
+            <End Role="Applicant" EntitySet="Applicants" />
+            <End Role="AddressHistory" EntitySet="AddressHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Applicant_Application" Association="Self.FK_Applicant_Application">
+            <End Role="Application" EntitySet="Applications" />
+            <End Role="Applicant" EntitySet="Applicants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmploymentHistory_Applicant" Association="Self.FK_EmploymentHistory_Applicant">
+            <End Role="Applicant" EntitySet="Applicants" />
+            <End Role="EmploymentHistory" EntitySet="EmploymentHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Occupants_Application" Association="Self.FK_Occupants_Application">
+            <End Role="Application" EntitySet="Applications" />
+            <End Role="Occupants" EntitySet="Occupants" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pets_Application" Association="Self.FK_Pets_Application">
+            <End Role="Application" EntitySet="Applications" />
+            <End Role="Pets" EntitySet="Pets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vehicles_Application" Association="Self.FK_Vehicles_Application">
+            <End Role="Application" EntitySet="Applications" />
+            <End Role="Vehicles" EntitySet="Vehicles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Company_Users" Association="Self.FK_Company_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Company" EntitySet="Companies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Property_Company" Association="Self.FK_Property_Company">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="Property" EntitySet="Properties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Units_Property" Association="Self.FK_Units_Property">
+            <End Role="Property" EntitySet="Properties" />
+            <End Role="Units" EntitySet="Units" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Residents_Units" Association="Self.FK_Residents_Units">
+            <End Role="Units" EntitySet="Units" />
+            <End Role="Residents" EntitySet="Residents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorkOrders_Users" Association="PropManageModel.FK_WorkOrders_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="WorkOrder" EntitySet="WorkOrders" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_WorkOrders_Users">
+          <End Type="PropManageModel.User" Role="User" Multiplicity="1" />
+          <End Type="PropManageModel.WorkOrder" Role="WorkOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="WorkOrder">
+              <PropertyRef Name="ApprovedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PropManageModelStoreContainer" CdmEntityContainer="LocalPropManageEntities">
+          <EntitySetMapping Name="AddressHistories">
+            <EntityTypeMapping TypeName="PropManageModel.AddressHistory">
+              <MappingFragment StoreEntitySet="AddressHistory">
+                <ScalarProperty Name="AddHistory_ID" ColumnName="AddHistory_ID" />
+                <ScalarProperty Name="LandlordCompanyName" ColumnName="LandlordCompanyName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="StartEndDate" ColumnName="StartEndDate" />
+                <ScalarProperty Name="CityStateZip" ColumnName="CityStateZip" />
+                <ScalarProperty Name="Applicant_ID" ColumnName="Applicant_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Applicants">
+            <EntityTypeMapping TypeName="PropManageModel.Applicant">
+              <MappingFragment StoreEntitySet="Applicant">
+                <ScalarProperty Name="Applicant_ID" ColumnName="Applicant_ID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Social" ColumnName="Social" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="DriversLicenseNum" ColumnName="DriversLicenseNum" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Application_ID" ColumnName="Application_ID" />
+                <ScalarProperty Name="IsPrimary" ColumnName="IsPrimary" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Applications">
+            <EntityTypeMapping TypeName="PropManageModel.Application">
+              <MappingFragment StoreEntitySet="Application">
+                <ScalarProperty Name="Application_ID" ColumnName="Application_ID" />
+                <ScalarProperty Name="Applicants" ColumnName="Applicants" />
+                <ScalarProperty Name="Occupants" ColumnName="Occupants" />
+                <ScalarProperty Name="Pets" ColumnName="Pets" />
+                <ScalarProperty Name="Vehicles" ColumnName="Vehicles" />
+                <ScalarProperty Name="PropertyID" ColumnName="PropertyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="PropManageModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="DBAName" ColumnName="DBAName" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmploymentHistories">
+            <EntityTypeMapping TypeName="PropManageModel.EmploymentHistory">
+              <MappingFragment StoreEntitySet="EmploymentHistory">
+                <ScalarProperty Name="EmpHistory_ID" ColumnName="EmpHistory_ID" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="StartEndDate" ColumnName="StartEndDate" />
+                <ScalarProperty Name="GrossMonthlyIncome" ColumnName="GrossMonthlyIncome" />
+                <ScalarProperty Name="Applicant_ID" ColumnName="Applicant_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MaintenceRequests">
+            <EntityTypeMapping TypeName="PropManageModel.MaintenceRequest">
+              <MappingFragment StoreEntitySet="MaintenceRequests">
+                <ScalarProperty Name="RequestID" ColumnName="RequestID" />
+                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+                <ScalarProperty Name="RequestDetails" ColumnName="RequestDetails" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UnitID" ColumnName="UnitID" />
+                <ScalarProperty Name="ResidentID" ColumnName="ResidentID" />
+                <ScalarProperty Name="PropertyID" ColumnName="PropertyID" />
+                <ScalarProperty Name="IsClosed" ColumnName="IsClosed" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pets">
+            <EntityTypeMapping TypeName="PropManageModel.Pet">
+              <MappingFragment StoreEntitySet="Pets">
+                <ScalarProperty Name="Pet_ID" ColumnName="Pet_ID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Breed" ColumnName="Breed" />
+                <ScalarProperty Name="Deposit" ColumnName="Deposit" />
+                <ScalarProperty Name="Application_ID" ColumnName="Application_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Properties">
+            <EntityTypeMapping TypeName="PropManageModel.Property">
+              <MappingFragment StoreEntitySet="Property">
+                <ScalarProperty Name="PropertyID" ColumnName="PropertyID" />
+                <ScalarProperty Name="PropertyName" ColumnName="PropertyName" />
+                <ScalarProperty Name="PropertyAddress1" ColumnName="PropertyAddress1" />
+                <ScalarProperty Name="PropertyAddress2" ColumnName="PropertyAddress2" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Residents">
+            <EntityTypeMapping TypeName="PropManageModel.Resident">
+              <MappingFragment StoreEntitySet="Residents">
+                <ScalarProperty Name="ResidentID" ColumnName="ResidentID" />
+                <ScalarProperty Name="UnitID" ColumnName="UnitID" />
+                <ScalarProperty Name="MoveInDate" ColumnName="MoveInDate" />
+                <ScalarProperty Name="MoveOutDate" ColumnName="MoveOutDate" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Social" ColumnName="Social" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="PropertyID" ColumnName="PropertyID" />
+                <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Units">
+            <EntityTypeMapping TypeName="PropManageModel.Unit">
+              <MappingFragment StoreEntitySet="Units">
+                <ScalarProperty Name="UnitID" ColumnName="UnitID" />
+                <ScalarProperty Name="UnitLotNum" ColumnName="UnitLotNum" />
+                <ScalarProperty Name="UnitAddress1" ColumnName="UnitAddress1" />
+                <ScalarProperty Name="UnitAddress2" ColumnName="UnitAddress2" />
+                <ScalarProperty Name="Zip" ColumnName="Zip" />
+                <ScalarProperty Name="PropertyID" ColumnName="PropertyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="PropManageModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+                <ScalarProperty Name="PropertyID" ColumnName="PropertyID" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="IsOwner" ColumnName="IsOwner" />
+                <ScalarProperty Name="IsEmployee" ColumnName="IsEmployee" />
+                <ScalarProperty Name="IsResident" ColumnName="IsResident" />
+                <ScalarProperty Name="IsVendor" ColumnName="IsVendor" />
+                <ScalarProperty Name="EmployeeOf" ColumnName="EmployeeOf" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vehicles">
+            <EntityTypeMapping TypeName="PropManageModel.Vehicle">
+              <MappingFragment StoreEntitySet="Vehicles">
+                <ScalarProperty Name="Vehicle_ID" ColumnName="Vehicle_ID" />
+                <ScalarProperty Name="Make" ColumnName="Make" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="LicensePlateNum" ColumnName="LicensePlateNum" />
+                <ScalarProperty Name="StateIssued" ColumnName="StateIssued" />
+                <ScalarProperty Name="Application_ID" ColumnName="Application_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkOrders">
+            <EntityTypeMapping TypeName="PropManageModel.WorkOrder">
+              <MappingFragment StoreEntitySet="WorkOrders">
+                <ScalarProperty Name="WorkOrderID" ColumnName="WorkOrderID" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="ApproveDate" ColumnName="ApproveDate" />
+                <ScalarProperty Name="MaintenceRequestID" ColumnName="MaintenceRequestID" />
+                <ScalarProperty Name="CurrentStatus" ColumnName="CurrentStatus" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="OrderStarted" ColumnName="OrderStarted" />
+                <ScalarProperty Name="OrderFinished" ColumnName="OrderFinished" />
+                <ScalarProperty Name="PromiseDate" ColumnName="PromiseDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomFields">
+            <EntityTypeMapping TypeName="PropManageModel.CustomField">
+              <MappingFragment StoreEntitySet="CustomFields">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Fields" ColumnName="Fields" />
+                <ScalarProperty Name="IsCompanyWide" ColumnName="IsCompanyWide" />
+                <ScalarProperty Name="PropertyID" ColumnName="PropertyID" />
+                <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Occupants">
+            <EntityTypeMapping TypeName="PropManageModel.Occupant">
+              <MappingFragment StoreEntitySet="Occupants">
+                <ScalarProperty Name="Occupant_ID" ColumnName="Occupant_ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="Application_ID" ColumnName="Application_ID" />
+                <ScalarProperty Name="SSN" ColumnName="SSN" />
+                <ScalarProperty Name="Drivers_License_Num" ColumnName="Drivers_License_Num" />
+                <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserPasswordResets">
+            <EntityTypeMapping TypeName="PropManageModel.UserPasswordReset">
+              <MappingFragment StoreEntitySet="UserPasswordReset">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ResetKey" ColumnName="ResetKey" />
+                <ScalarProperty Name="Expiry" ColumnName="Expiry" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -21,6 +21,7 @@
                             <asp:Label runat="server" ID="lblPropertyName"></asp:Label></h3>
                         <h4 class="text-center">
                             <asp:Label runat="server" ID="lblPropertyAddress"></asp:Label>
+
                             <br />
                             <asp:Label runat="server" ID="lblPropertyPhone"></asp:Label></h4>
                     </div>
